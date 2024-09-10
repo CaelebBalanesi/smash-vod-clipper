@@ -1,0 +1,36 @@
+<div>
+  <input type="text" [(ngModel)]="youtubeUrl" placeholder="Enter YouTube URL" />
+  <button (click)="playVideo()">Play</button>
+</div>
+
+@if (videoId) {
+  <div>
+    <div id="player"></div>
+  </div>
+}
+
+@if (videoLoaded) {
+  <div>
+    <button (click)="selectFrame('start')">Select Start Frame</button>
+    <button (click)="selectFrame('end')">Select End Frame</button>
+  </div>
+}
+
+@if (startFrame) {
+  <p>Start Frame: {{ startFrame }} seconds</p>
+}
+
+@if (endFrame) {
+  <p>End Frame: {{ endFrame }} seconds</p>
+}
+
+@if (startFrame && endFrame) {
+  <button (click)="sendFrames()">Submit Frames</button>
+}
+
+@if (gifUrl) {
+  <div>
+    <h3>Generated GIF:</h3>
+    <img [src]="gifUrl" alt="Generated GIF" />
+  </div>
+}

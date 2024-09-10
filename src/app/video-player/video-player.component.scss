@@ -11,7 +11,6 @@ body {
   align-items: center;
 }
 
-/* Center everything inside the video-player component */
 .app-container {
   display: flex;
   flex-direction: column;
@@ -20,6 +19,15 @@ body {
   width: 100%;
   max-width: 600px;
   text-align: center;
+}
+
+.gif-container {
+  position:absolute;
+  width: 300px;
+  height: 100%;
+  padding: 12px;
+  right: 0px;
+  overflow: auto;
 }
 
 input {

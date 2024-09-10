@@ -15,20 +15,26 @@
     </div>
   }
 
-  @if (startFrame) {
+  @if (startFrame && !endFrame) {
     <p>Start Frame: {{ startFrame }} seconds</p>
-  }
-  @if (endFrame) {
+  } @else if (endFrame && !startFrame) {
     <p>End Frame: {{ endFrame }} seconds</p>
+  } @else if (startFrame && endFrame) {
+    <p>Start Frame: {{ startFrame }} End Frame: {{ endFrame }} seconds</p>
   }
   @if (startFrame && endFrame) {
     <button (click)="sendFrames()">Submit Frames</button>
   }
 
-  @if (gifUrl) {
-    <div>
-      <h3>Generated GIF:</h3>
-      <img [src]="gifUrl" alt="Generated GIF" />
+  @if (gifUrlList.length > 0) {
+    <div class="gif-container">
+      <h3>Generated GIFs:</h3>
+      <h6>Click to Download</h6>
+      @for (url of gifUrlList.reverse(); track $index) {
+      <a [href]="url" [download]="'clip' + $index + '.gif'">
+        <img [src]="url" alt="Generated GIF" />
+      </a>
+      }
     </div>
   }
 </div>

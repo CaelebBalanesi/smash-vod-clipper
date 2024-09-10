@@ -17,7 +17,8 @@ export class VideoPlayerComponent {
   videoLoaded: boolean = false;
   startFrame: number | null = null;
   endFrame: number | null = null;
-  gifUrl: string | null = null;
+  gifUrlList: string[] = [];
+  
 
   constructor (private videoDownloadService: VideoDownloadService ) {}
 
@@ -48,8 +49,15 @@ export class VideoPlayerComponent {
   initializePlayer() {
     this.player = new YT.Player('player', {
       videoId: this.videoId,
+      width: 1152,
+      height: 648,
       events: {
         'onReady': this.onPlayerReady.bind(this)
+      },
+      playerVars: {
+        enablejsapi: 1,
+        'origin': window.location.origin,
+        rel: 0,
       }
     });
   }
@@ -71,14 +79,10 @@ export class VideoPlayerComponent {
   sendFrames() {
     if (this.startFrame !== null && this.endFrame !== null) {
       this.videoDownloadService.downloadGif(this.youtubeUrl, this.startFrame, this.endFrame).subscribe((response) => {
-        // Create a URL for the blob and display the GIF
         const blob = new Blob([response], { type: 'image/gif' });
         const url = window.URL.createObjectURL(blob);
-        this.gifUrl = url;  // Display the GIF
+        this.gifUrlList.push(url);  // Display the GIF
       });
     }
-
-    // Here you can send frames to your backend using Angular HTTP service
-    // this.http.post('your-backend-api-url', frames).subscribe(response => { ... });
   }
 }

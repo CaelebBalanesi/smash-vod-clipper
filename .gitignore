@@ -42,3 +42,5 @@ testem.log
 Thumbs.db
 
 /backend/node_modules
+/backend/*.gif
+/backend/*.mp4

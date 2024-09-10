@@ -1,74 +1,67 @@
+/* Apply dark background to the whole body */
 body {
+  background-color: #121212;
+  color: #ffffff; /* Light text for dark background */
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
 }
 
-.container {
-  max-width: 600px;
+/* Center everything inside the video-player component */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  padding: 20px;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  max-width: 600px;
   text-align: center;
 }
 
-input[type="text"] {
-  width: 100%;
+input {
+  background-color: #333;
+  color: #fff;
+  border: none;
   padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
+  margin-bottom: 20px;
+  border-radius: 5px;
 }
 
 button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
+  background-color: #1e88e5;
+  color: #fff;
   border: none;
-  border-radius: 4px;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #1565c0;
 }
 
-p {
-  margin-top: 15px;
+img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-top: 20px;
 }
 
-.youtube-player {
-  width: 100%;
-  height: auto;
-}
+/* Adjust input and button for smaller screens */
+@media (max-width: 600px) {
+  .app-container {
+    padding: 20px;
+  }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 15px;
+  input {
+    width: 100%;
   }
 
   button {
     width: 100%;
-    margin-top: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  input[type="text"] {
-    font-size: 14px;
-  }
-
-  button {
-    font-size: 14px;
   }
 }

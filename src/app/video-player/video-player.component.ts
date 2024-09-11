@@ -8,15 +8,18 @@ import { VideoDownloadService } from '../video-download.service';
   standalone: true,
   imports: [FormsModule,NgxYoutubePlayerModule],
   templateUrl: './video-player.component.html',
-  styleUrl: './video-player.component.scss'
+  styleUrl: './video-player.component.scss',
+  host: {
+    '(document:keypress)': 'handleKeyboardEvent($event);'
+  }
 })
 export class VideoPlayerComponent {
   youtubeUrl: string = '';
   videoId: string = '';
-  player: any;
+  player!: YT.Player;
   videoLoaded: boolean = false;
-  startFrame: number | null = null;
-  endFrame: number | null = null;
+  startFrame: number = 0;
+  endFrame: number = 0;
   gifUrlList: string[] = [];
   
 
@@ -55,9 +58,12 @@ export class VideoPlayerComponent {
         'onReady': this.onPlayerReady.bind(this)
       },
       playerVars: {
-        enablejsapi: 1,
-        'origin': window.location.origin,
+        // enablejsapi: 1,
+        // 'origin': window.location.origin,
         rel: 0,
+        autoplay: 1,
+        controls: 0,
+        disablekb: 1,
       }
     });
   }
@@ -70,9 +76,9 @@ export class VideoPlayerComponent {
     console.log(this.player);
     const currentTime = this.player.getCurrentTime();
     if (type === 'start') {
-      this.startFrame = currentTime;
+      this.startFrame = parseFloat(currentTime.toFixed(1));
     } else if (type === 'end') {
-      this.endFrame = currentTime;
+      this.endFrame = parseFloat(currentTime.toFixed(1));
     }
   }
 
@@ -84,5 +90,34 @@ export class VideoPlayerComponent {
         this.gifUrlList.push(url);  // Display the GIF
       });
     }
+  }
+
+  handleKeyboardEvent(event: KeyboardEvent) {
+    console.log(event.key);
+    if(event.key == 'a') {
+      this.player.seekTo(this.player.getCurrentTime() - 1, true);
+    } else if (event.key == 'd') {
+      this.player.seekTo(this.player.getCurrentTime() + 1, true);
+    }else if (event.key == 'q') {
+      this.player.seekTo(this.player.getCurrentTime() - 2.5, true);
+    } else if (event.key == 'e') {
+      this.player.seekTo(this.player.getCurrentTime() + 2.5, true);
+    } else if (event.key == 'z') {
+      this.selectFrame('start');
+    } else if(event.key == 'c') {
+      this.selectFrame('end');
+    } else if (event.key == 'x') {
+      this.sendFrames();
+    } else if (event.key == ' ') {
+      let state = this.player.getPlayerState();
+      if (state == 1) {
+        this.player.pauseVideo();
+      } else if (state == 2) {
+        this.player.playVideo();
+      } else if (state == -1) {
+        this.player.playVideo();
+      }
+    }
+
   }
 }

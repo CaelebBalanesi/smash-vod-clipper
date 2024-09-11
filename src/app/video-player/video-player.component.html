@@ -1,29 +1,18 @@
 <div class="app-container">
-  <input type="text" [(ngModel)]="youtubeUrl" placeholder="Enter YouTube URL" />
-  <button (click)="playVideo()">Play</button>
+  <div>
+    <input type="text" [(ngModel)]="youtubeUrl" placeholder="Enter YouTube URL" />
+    <button (click)="playVideo()">Play</button>
+  </div>
 
   @if (videoId) {
   <div>
     <div id="player"></div>
   </div>
-  }
 
-  @if (videoLoaded) {
-    <div>
-      <button (click)="selectFrame('start')">Select Start Frame</button>
-      <button (click)="selectFrame('end')">Select End Frame</button>
-    </div>
-  }
-
-  @if (startFrame && !endFrame) {
-    <p>Start Frame: {{ startFrame }} seconds</p>
-  } @else if (endFrame && !startFrame) {
+  <div class="selected-frames">
+    <p>Start time: {{ startFrame }} seconds</p>
     <p>End Frame: {{ endFrame }} seconds</p>
-  } @else if (startFrame && endFrame) {
-    <p>Start Frame: {{ startFrame }} End Frame: {{ endFrame }} seconds</p>
-  }
-  @if (startFrame && endFrame) {
-    <button (click)="sendFrames()">Submit Frames</button>
+  </div>
   }
 
   @if (gifUrlList.length > 0) {
@@ -32,7 +21,7 @@
       <h6>Click to Download</h6>
       @for (url of gifUrlList.reverse(); track $index) {
       <a [href]="url" [download]="'clip' + $index + '.gif'">
-        <img [src]="url" alt="Generated GIF" />
+        <img [src]="url" alt="Generated GIF" class="gif"/>
       </a>
       }
     </div>

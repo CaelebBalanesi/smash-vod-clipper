@@ -8,7 +8,6 @@ body {
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .app-container {
@@ -26,8 +25,22 @@ body {
   width: 300px;
   height: 100%;
   padding: 12px;
+  top: 0px;
   right: 0px;
-  overflow: auto;
+  overflow-x: hidden;
+}
+
+.gif-container h3 {
+  top: 0px;
+}
+
+.gif {
+  transform: translateX(225px);
+  transition: all 0.2s;
+}
+
+.gif:hover {
+  transform: translateX(0px);
 }
 
 input {
@@ -57,6 +70,13 @@ img {
   max-width: 100%;
   border-radius: 10px;
   margin-top: 20px;
+}
+
+.selected-frames {
+  background-color: #1e88e5;
+  color: white;
+  border-radius: 5px;
+  padding: 8px;
 }
 
 /* Adjust input and button for smaller screens */

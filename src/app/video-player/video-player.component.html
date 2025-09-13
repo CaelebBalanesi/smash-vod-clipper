@@ -1,6 +1,10 @@
-<div class="app-container">
+<div class="app-container" tabindex="0">
   <div>
-    <input type="text" [(ngModel)]="youtubeUrl" placeholder="Enter YouTube URL" />
+    <input
+      type="text"
+      [(ngModel)]="youtubeUrl"
+      placeholder="Enter YouTube URL"
+    />
     <button (click)="playVideo()">Play</button>
   </div>
 
@@ -13,17 +17,15 @@
     <p>Start time: {{ startFrame }} seconds</p>
     <p>End Frame: {{ endFrame }} seconds</p>
   </div>
-  }
-
-  @if (gifUrlList.length > 0) {
-    <div class="gif-container">
-      <h3>Generated GIFs:</h3>
-      <h6>Click to Download</h6>
-      @for (url of gifUrlList.reverse(); track $index) {
-      <a [href]="url" [download]="'clip' + $index + '.gif'">
-        <img [src]="url" alt="Generated GIF" class="gif"/>
-      </a>
-      }
-    </div>
+  } @if (gifUrlList.length > 0) {
+  <div class="gif-container">
+    <h3>Generated GIFs:</h3>
+    <h6>Click to Download</h6>
+    @for (url of gifUrlList.reverse(); track $index) {
+    <a [href]="url" [download]="'clip' + $index + '.gif'">
+      <img [src]="url" alt="Generated GIF" class="gif" />
+    </a>
+    }
+  </div>
   }
 </div>
